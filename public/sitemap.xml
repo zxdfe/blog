@@ -3,17 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://zxdfe.github.io/about/about/</loc>
+    <lastmod>2021-03-12T12:31:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://zxdfe.github.io/about/</loc>
+    <lastmod>2021-03-12T12:31:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://zxdfe.github.io/</loc>
+    <lastmod>2021-03-12T12:31:49+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://zxdfe.github.io/posts/helloworld/</loc>
     <lastmod>2021-03-12T00:57:19+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://zxdfe.github.io/posts/</loc>
-    <lastmod>2021-03-12T00:57:19+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://zxdfe.github.io/</loc>
     <lastmod>2021-03-12T00:57:19+08:00</lastmod>
   </url>
   
