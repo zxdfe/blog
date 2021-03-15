@@ -1,19 +1,5 @@
-# baseURL = "http://zxdfe.github.io"
-# languageCode = "en-us"
-# title = "Zxd's Blog"
-# theme = "novela"
-# Novela settings
-theme = "hugo-theme-novela"
-
-paginate = 6
-
-[social]
-twitter= "https://twitter.com/forestryio"
-github= "https://github.com/forestryio/novela-hugo-starter"
-linkedin= "https://www.linkedin.com/company/forestry.io"
-instagram = "#"
-dribbble = "#"
-youtube = "#"
-
-[taxonomies]
-author = "zxd"
+baseURL = "http://zxdfe.github.io"
+languageCode = "en-us"
+title = "Zxd's Blog"
+theme = "anatole"
+Novela settings
