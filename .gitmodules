@@ -1,6 +1,9 @@
 [submodule "themes/anatole"]
 	path = themes/anatole
 	url = https://github.com/lxndrblz/anatole.git
+[submodule "themes/ezhil"]
+	path = themes/ezhil
+	url = https://github.com/vividvilla/ezhil.git
 [submodule "themes/mini"]
 	path = themes/mini
 	url = https://github.com/nodejh/hugo-theme-mini.git
