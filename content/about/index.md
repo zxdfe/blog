@@ -1,15 +1,24 @@
 ---
-title: 基于Hexo+Github Pages搭建blog
-date: 2021-02-25 23:34:03
-tags:
+title: "About"
+date: 2021-03-12T12:31:49+08:00
+draft: true
 ---
----
+- TEST
+- hugo
+- just to do
+- testhhhh
+- test
+- 测试一下
+- hhhhhyy
+
 ## 安装Hexo
 [https://hexo.io/zh-cn/docs/](https://hexo.io/zh-cn/docs/)
+
 ```shell
 npm install hexo
 ```
 安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。
+
 ```shell
 $ hexo init <folder>
 $ cd <folder>
@@ -26,7 +35,8 @@ $ hexo s  // 启动本地预览服务
 ## 修改主题为Next主题
 #### 安装主题
 #### Using Git  推荐,可修改模板文件
-```javascript
+
+```js
 $ cd hexo-site
 $ git clone https://github.com/next-theme/hexo-theme-next themes/next
 ```
@@ -82,7 +92,7 @@ hexo clean  // 清除缓存文件 (db.json) 和已生成的静态文件 (public)
 
 1. 安装 hexo-deployer-git
 2. 在 **_config.yml**（如果有已存在的请删除）添加如下配置：
-```yaml
+```shell
 deploy:
   type: git
   repo: https://github.com/<username>/<project>
