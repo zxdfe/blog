@@ -1,9 +1,9 @@
 [submodule "themes/ezhil"]
 	path = themes/ezhil
 	url = https://github.com/vividvilla/ezhil.git
-[submodule "themes/sunflower"]
-	path = themes/sunflower
-	url = https://github.com/zxdfe/hugo-theme-sunflower.git
 [submodule "themes/even"]
 	path = themes/even
 	url = https://github.com/olOwOlo/hugo-theme-even.git
+[submodule "themes/sunflower"]
+	path = themes/sunflower
+	url = https://github.com/zxdfe/hugo-theme-sunflower.git
