@@ -92,7 +92,6 @@ ES6 规范中，MicroTask 称为 jobs，MacroTask 称为 task
 
 Node.js也是单线程的Event Loop，但是它的运行机制不同于浏览器环境
 
-
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/302528/1614593172374-ee8ff6eb-ca0b-48df-8b2e-6fb4ea44a094.png#align=left&display=inline&height=316&margin=%5Bobject%20Object%5D&name=image.png&originHeight=316&originWidth=800&size=55988&status=done&style=none&width=800)
 
 :::tips
