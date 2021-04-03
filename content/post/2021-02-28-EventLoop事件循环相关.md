@@ -179,13 +179,13 @@ new Promise(resolve => {
 
 ---
 
-## 参考
+## References
 
 -  [深入浅出Javascript事件循环机制](https://zhuanlan.zhihu.com/p/26229293)
 -  [JavaScript 运行机制详解：再谈Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
 -  [JS事件循环](https://juejin.cn/post/6844903577052250119)
 -  [深入理解 JavaScript 事件循环 event loop](https://www.cnblogs.com/dong-xu/p/7000163.html)
-- [译]  [深入理解 JavaScript 事件循环 task and microtask](https://www.cnblogs.com/dong-xu/p/7000139.html)
+- [译] [深入理解 JavaScript 事件循环 task and microtask](https://www.cnblogs.com/dong-xu/p/7000139.html)
 -  [深入理解JavaScript事件循环机制](https://www.cnblogs.com/yugege/p/9598265.html)
 -  [【JS】深入理解事件循环,这一篇就够了](https://zhuanlan.zhihu.com/p/87684858)
 -   [在 JavaScript 中通过 queueMicrotask() 使用微任务](https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_DOM_API/Microtask_guide#%E4%BB%BB%E5%8A%A1_vs_%E5%BE%AE%E4%BB%BB%E5%8A%A1)
