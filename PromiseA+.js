@@ -116,8 +116,9 @@ class MyPromise {
         }
         /* 2.3.2 */
         if (x instanceof MyPromise) {
-            // 如果 x 为 Promise ，则使 newPromise 接受 x 的状态
+            // 如果 x 为 Promise ，则使 promise2 接受 x 的状态
             // 也就是继续执行x，如果执行的时候拿到一个y，还要继续解析y
+            // 这个if跟下面判断then然后拿到执行其实重复了，可有可无
             x.then((y) => {
                 this.resolvePromise(promise2, y, resolve, reject);
             }, reject);
@@ -164,17 +165,12 @@ class MyPromise {
                     // 否则以 e 为据因拒绝 promise
                     reject(e);
                 }
-            } else {
-                /* 2.3.3.4*/
-                // 如果 then 不是函数，以 x 为参数执行 promise
-                resolve(x);
             }
+             /* 2.3.3.4 如果 then 不是函数，以 x 为参数执行 promise*/ 
+            if (typeof then !== 'function') resolve(x)
         }
-        /* 2.3.4 */
-        if (typeof x !== 'object' && typeof x !=='function' || x === null){
-            // 如果 x 不为对象或者函数，以 x 为参数执行 promise
-            resolve(x)
-        }
+        /* 2.3.4 // 如果 x 不为对象或者函数，以 x 为参数执行 promise*/
+        if (typeof x !== 'object' && typeof x !=='function' || x === null) resolve(x)
     } 
     // resolve 静态方法
     static resolve (parameter) {
