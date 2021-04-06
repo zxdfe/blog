@@ -23,6 +23,9 @@ tags:
 ---
 
 ### Promise.all()
+1. 参数必须是数组
+2. 要保证返回结果顺序要与数组中顺序一致
+3. 一起执行,全部执行完才返回
 
 ```js
     static all (params) {
@@ -45,14 +48,14 @@ tags:
                     // promise对象 先执行
                     current.then(value => processResult(i, value), reason => reject(reason))
                 }else {
-                    // 普通值
+                    // 普通值,这儿可以省略改成下面的一种All实现
                     processResult(i, params[i])
                 }
             }
         })
     }
 ```
-
+- Best!
 ```js
 function PromiseAll(array) {
     return new Promise((resolve,reject) => {
@@ -65,10 +68,11 @@ function PromiseAll(array) {
 
         for(let i = 0; i < promiseNums; i++) {
             // 这里默认把所有入参都包装成promise返回了
+            // 因为如果是普通值,在Promise内部实现 2.3.4时, 有返回值的操作
             Promise.resolve(array[i]).then(value => {
-                counter++;
+                // counter++;
                 res[i] = value;
-                if (counter === promiseNums) resolve(res)
+                if ( ++counter === promiseNums) resolve(res)
                 // 只要有一个被rejected时, 就reject
             }).catch(e => reject(e))
         }
@@ -76,4 +80,64 @@ function PromiseAll(array) {
     })
 }
 ```
-以上是参考了网上一些版本后,改写的两个版比较满意的all实现~~
+以上是我参考了网上一些版本后,下来自己改写的两个版比较满意的all实现~,仅供参考哈 ~~
+
+### Promise.race() 
+用来处理多个请求, 采用最开的一个(谁先完成用谁)
+
+```js
+static race(array) {
+    return new Promise((resolve, reject) => {
+        for(let i = 0; i < promises.length; i++) {
+            // let current = promises[i]
+            // if(current instanceof MyPromise) {
+            //     current.then(resolve,reject)
+            // }else {
+            //     resolve(current)
+            // }
+            Promise.resolve(array[i]).then(
+                value => {
+                    resolve(value)},
+                reason => reject(reason))
+        }
+    })
+}
+
+```
+
+### Promise.resolve()
+```js
+// resolve 静态方法
+static resolve (value) {
+    // 如果传入 MyPromise 就直接返回
+    if (value instanceof MyPromise) return value
+    // 普通值,创建promise对象
+    return new MyPromise(resolve => resolve(value))
+}
+```
+
+### Promise.prototype.catch()
+
+```js
+Promise.prototype.catch = function(errCallback){
+  return this.then(undefined,errCallback)
+}
+
+// 构造函数中写法
+catch (failCallback) {
+    return this.then(undefined, failCallback)
+}
+```
+- Example
+```js
+const p = () => {
+    return new Promise((resolve,reject)=>{
+        reject('失败了哦')
+    })
+}
+
+p().then(value => console.log(value))
+    .catch(reason => console.log(reason))
+// failCallback ::: reason => console.log(reason)  
+```
+### Promise.prototype.finally()
