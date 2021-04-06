@@ -190,6 +190,32 @@ class MyPromise {
             reject(reason)
         })
     }
+
+    // all
+    static all (array) {
+        let result = []
+        let counter  = 0
+        return new MyPromise((resolve,reject) => {
+            function addData (key, value) {
+                result[key] = value
+                counter++
+                if (counter === array.length){
+                    resolve(result)
+                }
+            }
+            for (let i = 0; i < array.length; i++) {
+                let current = array[i]
+                if (current instanceof MyPromise) {
+                    // promise对象 先执行
+                    current.then(value => addData(i, value), reason => reject(reason))
+                }else {
+                    // 普通
+                    addData(i, array[i])
+                }
+            }
+        })
+    }
+
     // 工具函数, 判断function
     isFunction(value) {
         return typeof value === 'function';
