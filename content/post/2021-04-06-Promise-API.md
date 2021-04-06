@@ -6,7 +6,7 @@ tags:
 - Promises/A+
 ---
 
-## Promise-API
+## Promise API
 > 实例方法
 - Promise.prototype.then() 
 - Promise.prototype.catch()
