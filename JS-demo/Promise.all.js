@@ -24,3 +24,4 @@ function Promiseall (params) {
         }
     })
 }
+
