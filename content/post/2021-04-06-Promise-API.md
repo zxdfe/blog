@@ -140,3 +140,20 @@ p().then(value => console.log(value))
 // failCallback ::: reason => console.log(reason)  
 ```
 ### _.prototype.finally()
+1. 无论当前promise状态是成功或者失败,finally中的回调始终会执行一次
+2. 在finally()方法的后面可以链式调用then方法,拿到当前promise对象最终返回的结果
+
+```js
+finally (callback) {
+  return this.then(value =>{
+      // Promise包装是保证异步等待执行后面的then方法
+    return MyPromise.resolve(callback()).then(() => value)
+        // callback()
+        // return value
+    }, reason => {
+     return MyPromise.resolve(callback()).then(() => {throw reason})
+        // callback()
+        // throw reason
+    })
+}
+```
