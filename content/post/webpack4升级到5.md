@@ -3,21 +3,17 @@ title: "Webpack4升级到5"
 date: 2021-04-15T11:01:09+08:00
 draft: true
 ---
-## 迁移
+## 迁移注意
 1. webpack 5 要求至少 Node.js 10.13.0 (LTS)
 
-## 常用插件
-- [speed-measure-webpack-plugin](https://www.npmjs.com/package/speed-measure-webpack-plugin) 测速
-```
-npm install --save-dev speed-measure-webpack-plugin
-yarn add -D speed-measure-webpack-plugin
-```
+
 
 ## 升级步骤
 ### 1. webpack webpack-cli等升级
 ```
 yarn add webpack@next -D
 yarn add webpack-cli@latest -D
+yarn add html-webpack-plugin@next -D
 ```
 
 ### 2.其他依赖升级
@@ -33,8 +29,13 @@ yarn add webpack-cli@latest -D
 "eslint-plugin-promise": "^4.0.1",
 "eslint-plugin-standard": "^4.0.0",
 "eslint-plugin-vue": "^5.2.3",
+"firebase": "4.6.2", // 无用
 ```
-
+## 常用插件
+- [speed-measure-webpack-plugin](https://www.npmjs.com/package/speed-measure-webpack-plugin) 测速
+```
+yarn add speed-measure-webpack-plugin -D
+```
 ## 错误处理
 ### 1. `Tapable.plugin is deprecated`
 ```bash
@@ -48,25 +49,63 @@ webpackConfig = merge(webpackBaseConfig, {
     //....
 })
 module.exports = webpackConfig
+// npm run xxx
 ```
 追踪到warning在`speed-measure-webpack-plugin`和`webpack-uglify-parallel`中使用了废弃的api
 ```bash
 (node:29694) DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead
-    at Proxy.<anonymous> (/Users/zxd/Documents/qimai-workspace/appdata_web/node_modules/speed-measure-webpack-plugin/WrappedPlugin/index.js:69:17)
-    at UglifyJsParallelPlugin.apply (/Users/zxd/Documents/qimai-workspace/appdata_web/node_modules/webpack-uglify-parallel/index.js:33:11)
-    at WrappedPlugin.apply (/Users/zxd/Documents/qimai-workspace/appdata_web/node_modules/speed-measure-webpack-plugin/WrappedPlugin/index.js:288:29)
-    at webpack (/Users/zxd/Documents/qimai-workspace/appdata_web/node_modules/webpack/lib/webpack.js:37:12)
-    at /Users/zxd/Documents/qimai-workspace/appdata_web/build/build-client.js:100:5
-    at next (/Users/zxd/Documents/qimai-workspace/appdata_web/node_modules/rimraf/rimraf.js:83:7)
-    at CB (/Users/zxd/Documents/qimai-workspace/appdata_web/node_modules/rimraf/rimraf.js:119:9)
-    at FSReqCallback.oncomplete (fs.js:156:23)
-
+    at Proxy.<anonymous> (/xxxx/speed-measure-webpack-plugin/WrappedPlugin/index.js:69:17)
+    at UglifyJsParallelPlugin.apply (/xxxxx/webpack-uglify-parallel/index.js:33:11)
 ```
 - 删除webpack-uglify-parallel,改用`webpack-parallel-uglify-plugin`
-### 2. `terser-webpack-plugin`替换掉`uglifyjs-webpack-plugin`
-webpack5 自带`terser-webpack-plugin`,不需要安装
+### 2. uglifyjs-webpack-plugin
+使用webpack5 自带的`terser-webpack-plugin`,删除`uglifyjs-webpack-plugin`相关配置
+### 3. source-map
+```
+// webpack4
+devtool: cheap-eval-module-source-map
 
-### 3. 去掉`"firebase": "4.6.2",`,无用依赖
+// webpack5
+devtool: eval-cheap-module-source-map // 写法更改了
+```
+### 4. webpack-merge
+```
+// webpack 4.X
+const merge = require('webpack-merge')
+
+// webpack 5.x
+const { merge } = require('webpack-merge')
+```
+### 5. copy-webpack-plugin
+```js
+// webpack 4.X
+new CopyPlugin([
+    {
+        from: path.resolve(__dirname, '../public'),
+        to: config.build.assetsRoot,
+        ignore: ['\.*']
+    },
+]),
+
+// webpack 5.X
+new CopyPlugin({
+    patterns:[
+        {
+            from: path.resolve(__dirname, '../public'),
+            to: config.build.assetsRoot,
+            globOptions:{
+                ignore: ['\.*']
+            }
+        },
+        
+    ]
+}),
+```
+### 6. optimize-css-assets-webpack-plugin
+官方准备弃用了,改用`css-minimizer-webpack-plugin`
+
+---
+
 
 ### PS.
 - `--save` 简写`-S`, 是默认命令，当使用npm install [fileName]命令时默认调用,会把下载文件的信息记录至package.json的`dependencies`属性中
@@ -81,3 +120,7 @@ webpack5 自带`terser-webpack-plugin`,不需要安装
 
 ## References
 1. https://webpack.docschina.org/migrate/5/
+2. https://juejin.cn/post/6844904169405415432  待看
+3. https://juejin.cn/post/6922622067149897735  
+4. [构建效率大幅提升，webpack5 在企鹅辅导的升级实践](https://juejin.cn/post/6937609106022727717)
+5. https://dongdaima.com/article/30465#/ 待删
