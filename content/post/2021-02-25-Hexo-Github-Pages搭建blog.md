@@ -4,6 +4,8 @@ date: 2021-02-25 23:34:03
 tags:
 ---
 ---
+## PS
+本站基于Hugo搭建,不是hexo哈~~~
 ## 安装Hexo
 [https://hexo.io/zh-cn/docs/](https://hexo.io/zh-cn/docs/)
 ```shell
