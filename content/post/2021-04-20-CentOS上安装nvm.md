@@ -7,7 +7,7 @@ tags:
  - linux
 ---
 ## CentOS上安装nvm
-1. 先按照curl,标准CentOS库中提供了Curl软件包
+1. 先安装curl,标准CentOS库中提供了Curl软件包
 ```shell
 sudo dnf install curl
 ```
