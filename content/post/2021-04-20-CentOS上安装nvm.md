@@ -51,7 +51,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 cp -r node_modules/ ../appdata_web_dev/
 
 ```
-[qimai@dev workspace]$ whereis node
+whereis node
 node: /usr/bin/node /usr/local/bin/node /usr/share/man/man1/node.1.gz
 [qimai@dev workspace]$ sudo -s
 [root@dev workspace]# whereis node
