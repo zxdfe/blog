@@ -61,7 +61,5 @@ cp：是否覆盖"/usr/bin/node"？ y
 cp：是否覆盖"/usr/local/bin/node"？ y
 [root@dev workspace]# chmod a+x /usr/bin/node /usr/local/bin/node
 [root@dev workspace]# su qimai
-[qimai@dev workspace]$ node -vv
-node: bad option: -vv
 [qimai@dev workspace]$ node -v
 ```
