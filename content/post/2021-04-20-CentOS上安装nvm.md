@@ -60,6 +60,6 @@ cp：是否覆盖"/usr/bin/node"？ y
 [root@dev workspace]# cp -rf /root/.nvm/versions/node/v12.22.1/bin/node /usr/local/bin/node
 cp：是否覆盖"/usr/local/bin/node"？ y
 [root@dev workspace]# chmod a+x /usr/bin/node /usr/local/bin/node
-[root@dev workspace]# su qimai
+su qimai
 node -v
 ```
