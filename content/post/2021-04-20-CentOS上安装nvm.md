@@ -46,7 +46,8 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 ## yarn
 - `curl -o- -L https://yarnpkg.com/install.sh | bash` CentOS上安装yarn
 - `yarn config get registry` --> https://registry.yarnpkg.com
-- `vi` `touch`会自动创建,可编辑  `cat`不会自动创建,只能查看
+- `vi` `touch`会自动创建,可编辑
+- `cat`不会自动创建,只能查看
 
 cp -r node_modules/ ../appdata_web_dev/
 
