@@ -19,4 +19,28 @@ output: {
     path: path.join(_dirname, '../server-build')
 },
 externals: Object.keys(require('../package.json').dependencies) // 这部分不打包到输出文件中
-````
+```
+### 2. server-entry
+```js
+import  createApp  from './create-app'
+
+export default context => {
+    return new Promise((resolve, reject) => {
+        // 每次都要创建
+        const { app, router, store } = createApp()
+
+        router.push(context.url)
+        
+        // 一般服务端渲染才用到
+        // 所以异步操作做完才调用回调
+        router.onReady(() => {
+            const matchedComponents = router.getMatchedComponents()
+            if (!matchedComponents.length) {
+                return reject(new Error('no component matched'))
+            }
+            resolve(app)
+        })
+
+    })
+}
+```
