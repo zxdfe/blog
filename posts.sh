@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 echo "输入文件名？(Name.md)"   
-# read  REPLY 
-#     echo ""
-#     echo ""
+read  REPLY 
+    echo ""
+    echo ""
 
     # 创建文件
     fileDate=$(date +%Y-%m-%d)
