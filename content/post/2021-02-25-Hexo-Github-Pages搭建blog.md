@@ -1,6 +1,7 @@
 ---
 title: Hexo+Github Pages搭建blog
 date: 2021-02-25 23:34:03
+draft: true
 tags:
 ---
 ---
