@@ -49,6 +49,11 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
     identifier = "algorithm"
     url = "/algo/"
 [[menu.main]]
+    name = "C++"
+    weight = 40
+    identifier = "c++"
+    url = "/C++/"
+[[menu.main]]
   name = "Tags"
   weight = 40
   identifier = "tags"
