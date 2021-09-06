@@ -39,11 +39,6 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   identifier = "archives"
   url = "/post/"
 [[menu.main]]
-    name = "Algo"
-    weight = 30
-    identifier = "algorithm"
-    url = "/algo/"
-[[menu.main]]
   name = "Tags"
   weight = 40
   identifier = "tags"
