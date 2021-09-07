@@ -26,8 +26,7 @@ JavaScript是一门单线程非阻塞的脚本语言, 作为浏览器脚本语�
 `同步任务`: 立即执行的任务, 同步任务一般会直接进入到主线程中执行. 只有前一个任务执行完毕，才能执行后一个任务；
 `异步任务`: 异步执行的任务,不进入主线程、而进入"任务队列"（task queue）的任务，如, Ajax网络请求,seTtimeout等定时函数, 异步任务会通过任务队列的机制(先进先出的机制)来进行协调.
 
-
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/302528/1614587877626-3f9d770f-8ee8-4811-ab0e-ffc029b40220.png#align=left&display=inline&height=457&margin=%5Bobject%20Object%5D&name=image.png&originHeight=914&originWidth=776&size=544464&status=done&style=none&width=388)
+![](https://gtd-imgs-md.oss-cn-beijing.aliyuncs.com/imgs/20210907230748.png)
 
 
 ## 事件和回调函数
@@ -92,7 +91,7 @@ ES6 规范中，MicroTask 称为 jobs，MacroTask 称为 task
 
 Node.js也是单线程的Event Loop，但是它的运行机制不同于浏览器环境
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/302528/1614593172374-ee8ff6eb-ca0b-48df-8b2e-6fb4ea44a094.png#align=left&display=inline&height=316&margin=%5Bobject%20Object%5D&name=image.png&originHeight=316&originWidth=800&size=55988&status=done&style=none&width=800)
+![](https://gtd-imgs-md.oss-cn-beijing.aliyuncs.com/imgs/20210907230652.png)
 
 :::tips
 （1）V8引擎解析JavaScript脚本。
@@ -207,3 +206,4 @@ new Promise(resolve => {
 -  [javascript中script整体代码属于宏任务怎么理解](https://segmentfault.com/q/1010000023206213?utm_source=tag-newest)
 - [https://www.jianshu.com/p/bfc3e319a96b](https://www.jianshu.com/p/bfc3e319a96b)                                           
 <!-- - async await [https://segmentfault.com/a/1190000007535316]( -->
+- [Node中的事件循环](https://zhuanlan.zhihu.com/p/54882306)
