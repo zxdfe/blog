@@ -4,7 +4,7 @@
   "description": "my promise",
   "main": "MyPromise.js",
   "scripts": {
-    "test": "promises-aplus-tests PromiseA+",
+    "test": "promises-aplus-tests PromiseA+"
   },
   "author": "ITEM",
   "license": "ISC",

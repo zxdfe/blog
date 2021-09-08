@@ -93,12 +93,11 @@ Node.js也是单线程的Event Loop，但是它的运行机制不同于浏览器
 
 ![](https://gtd-imgs-md.oss-cn-beijing.aliyuncs.com/imgs/20210907230652.png)
 
-:::tips
-（1）V8引擎解析JavaScript脚本。
-（2）解析后的代码，调用Node API。
-（3）[libuv库](https://github.com/joyent/libuv)负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。
-（4）V8引擎再将结果返回给用户。
-:::
+- tips
+1. V8引擎解析JavaScript脚本。
+2. 解析后的代码，调用Node API。
+3. [libuv库](https://github.com/joyent/libuv)负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。
+4. V8引擎再将结果返回给用户。
 
 
 #### JS

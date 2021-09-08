@@ -46,3 +46,4 @@ HTTP2.0 和HTTP 1.1相比
 
 ## Reference
 1. [HTTP1.0、HTTP1.1 和 HTTP2.0 的区别](https://www.cnblogs.com/heluan/p/8620312.html)
+2. [从输入URL到页面展示](https://blog.csdn.net/asd0356/article/details/107895274)
