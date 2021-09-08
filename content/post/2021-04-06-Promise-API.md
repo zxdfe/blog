@@ -58,21 +58,22 @@ static all (params) {
 - Best!
 ```js
 function PromiseAll(array) {
+    if(!Array.isArray(array)) {
+        const type = typeof array;
+        return new TypeError(`TypeError: ${type} ${array} is not iterable`)
+    }
     return new Promise((resolve,reject) => {
-        if(!Array.isArray(array)) {
-            return reject(new Error('传入的参数必须是数组哦!'))
-        }
-        const res = []
+        let resultArr = []
+        let orderCounter = 0 // 计数器, 保证返回顺序和传入顺序一致
         const promiseNums = array.length
-        let counter = 0 // 计数器, 保证返回顺序和传入顺序一致
 
         for(let i = 0; i < promiseNums; i++) {
             // 这里默认把所有入参都包装成promise返回了
             // 因为如果是普通值,在Promise内部实现 2.3.4时, 有返回值的操作
             Promise.resolve(array[i]).then(value => {
                 // counter++;
-                res[i] = value;
-                if ( ++counter === promiseNums) resolve(res)
+                resultArr[i] = value;
+                if ( ++orderCounter === promiseNums) resolve(resultArr)
                 // 只要有一个被rejected时, 就reject
             }).catch(e => reject(e))
         }
