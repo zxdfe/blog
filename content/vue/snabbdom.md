@@ -1,0 +1,204 @@
+---
+title: "Snabbdom"
+date: 2021-11-29T00:07:50+08:00
+draft: true
+tags:
+ - 
+---
+
+## Snabbdom配置
+
+1. 安装 parcel
+2. 配置scripts
+3. 目录结构
+
+### 安装 parcel
+
+```bash
+# 创建项目目录
+md snabbdom-demo
+# 进入项目目录
+cd snabbdom-demo
+# 创建package.json
+npm init -y
+# 本地安装 parcel
+npm install parcel-bundler -D
+```
+
+### 配置scripts
+
+```json
+  "scripts": {
+        "dev":"parcel index.html --open",
+        "build":"parcel build index.html"
+  },
+```
+
+![](https://gtd-imgs-md.oss-cn-beijing.aliyuncs.com/imgs/20211129000945.png)
+
+## Snabbdom 文档
+
+- [snabbdom](https://github.com/snabbdom/snabbdom) 
+- 当前版本 3.1.0
+
+### 导入snabbdom
+
+```js
+import { init, h } from 'snabbdom'
+```
+
+### Snabbdom两个核心函数
+
+- init() 是一个高阶函数，返回 patch()
+- h() 返回虚拟节点 VNode，这个函数我们在使用 Vue.js 的时候见过
+
+```html
+<body>
+    <div id="app"></div>
+    <script src="./src/01-basic.js"></script>
+</body>
+```
+
+#### patch函数示例1
+
+```js
+import { init, h } from 'snabbdom'
+
+// 把虚拟dom转换为真实DOM, 并挂载到DOM树上
+const patch = init([])
+
+// h函数用来创建虚拟DOM, 这里创建的是vnode虚拟节点
+// vnode: 描述真实DOM
+// h() 第一个参数: 标签+选择器
+// 第二个参数: 如果是字符串就是标签中的文本内容
+let vnode = h("div#container.cls", "Hello World")
+
+let app = document.querySelector('#app')
+
+// patch函数
+// 第一个参数: 旧的vnode, 还可以是DOM元素
+// 第二个参数: 新的vnode
+// 返回新的vnode
+let oldVnode = patch(app, vnode)
+
+vnode = h('div#container.xxx', 'Hello Snabbdom')
+patch(oldVnode, vnode)
+
+```
+
+####  patch函数示例2
+
+```js
+import { init, h } from 'snabbdom'
+
+// 把虚拟dom转换为真实DOM, 并挂载到DOM树上
+const patch = init([])
+
+// 带子元素 用[]形式
+let vnode = h("div#container", [
+    h('h1','Hello Snabbdom'),
+    h('p','这是一个p标签')
+])
+
+let app = document.querySelector('#app')
+let oldVnode = patch(app, vnode)
+
+// vnode = h('div#container.xxx', 'Hello Snabbdom')
+patch(oldVnode, vnode)
+
+setTimeout(() => {
+    // vnode = h('div#container',[
+    //     h('h1','Hello World'),
+    //     h('p','Hello p')
+    // ])
+    // patch(oldVnode, vnode)
+    // 清除div中内容 '!'
+    patch(oldVnode, h('!'))
+}, 2000);
+
+```
+
+### Snabbdom Module 模块
+
+#### 模块的作用
+
+- Snabbdom 的核心库并不能处理 DOM 元素的属性/样式/事件等， 
+  可以通过注册 Snabbdom 默认提供的模块来实现
+-  Snabbdom 中的模块可以用来扩展 Snabbdom的功能
+- Snabbdom 中的模块的实现是通过注册全局的钩子函数来实现的
+
+
+
+#### 官方提供的模块
+
+- attributes 设置属性
+- props   设置dom对象的属性 ，通过obj.property设置，不处理boolean
+- dataset   处理html5中 data-类型属性
+- class  切换类样式
+- style  设置行类样式
+- eventlisteners 注册事件
+
+#### 模块使用步骤
+
+- 导入需要的模块
+- init() 中注册模块
+- h() 函数的第二个参数处使用模块
+
+```js
+import { init, h, 
+    styleModule,
+    eventListenersModule
+} from 'snabbdom'
+
+// 1. 导入模块
+//  styleModule
+// 2. 注册模块
+const patch = init([
+    styleModule,
+    eventListenersModule
+])
+
+// 3. 使用h() 函数的第二个参数传入模块中使用的函数(对象)
+let vnode = h('div',[
+    h('h1',{
+        style: { backgroundColor: 'red'}
+    }, 'Hello World'),
+
+    h('p',{
+        on: {
+            click: eventHandler
+        }
+    }, 'Hello P')
+])
+// 这里不能用箭头函数,this指向不对
+// const eventHandler = () => {
+//     console.log('别点我,哈哈哈哈')
+// }
+function eventHandler () {
+    console.log('别点我,哈哈哈哈')
+}
+
+let app = document.querySelector('#app')
+
+patch(app, vnode)
+```
+
+## Snabbdom 源码解析
+
+### 如何学习源码
+
+- 宏观了解
+- 带着目标看源码
+- 看源码的过程要不求甚解
+- 调试
+- 参考资料
+
+### Snabbdom核心
+
+- init()设置模块， 创建patch() 函数
+- 使用h() 函数创建 JavaScript 对象（VNode）描述真实DOM
+- patch() 比较新旧两个VNode
+- 把变化的内容更新到真实DOM树
+
+
+
