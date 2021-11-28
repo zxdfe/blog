@@ -467,3 +467,106 @@ init () {
     this.initEvent()
 }
 ```
+
+## total source
+```js
+let _Vue = null
+class VueRouter {
+    constructor (options) {
+        this.options = options
+        this.routeMap = {}
+        this.data = _Vue.observable({
+            current:'/' // current存储当前路由地址
+        }) // vue创建响应式对象
+    }
+
+    static install (Vue) {
+        // 1. 判断当前插件是否已经被安装
+        if (VueRouter.install.installed) return
+        VueRouter.install.installed = true
+        // 2. 把Vue构造函数记录到全局变量
+        _Vue = Vue
+        // 3. 把创建Vue实例时候传入的router对象注入到Vue实例上
+        // _Vue.prototype.$router = this.$options.router
+        // 混入
+        _Vue.mixin({
+            beforeCreate() {
+                // 如果是Vue实例执行,组件就不执行了
+                // 只有Vue实例的$options里才有router对象
+                if (this.$options.router) {
+                    _Vue.prototype.$router = this.$options.router
+
+                    this.$options.router.init() // 调用init方法
+                }
+            },
+        })
+    }
+
+    init () {
+        this.createRouteMap()
+        this.iniComponents(_Vue)
+        this.initEvent()
+    }
+
+    createRouteMap () {
+        // 遍历所有的路由规则, 把路由规则解析成键值对的形式, 存储到routeMap中
+        this.options.routes.forEach(route => {
+            this.routeMap[route.path] = route.component
+        })
+    }
+
+    iniComponents (Vue) {
+        // Vue.component('router-link', {
+        //     props: {
+        //         to: String
+        //     },
+        //     template: '<a :href="to"><slot></slot></a>'
+        // })
+        Vue.component('router-link', {
+            props: {
+                to: String
+            },
+            // h: h函数作用:创建虚拟dom, 三个参数
+            render (h) {
+                return h ('a', {
+                    attrs: {
+                        href: this.to
+                    },
+                    on: {
+                        click: this.clickHandler // 注册事件不用加()
+                    }
+                }, [this.$slots.default])
+            },
+            methods: {
+                clickHandler (e) {
+                    // 第一个data:将来触发popstate的,暂时不用  title:''
+                    // 改变地址栏
+                    history.pushState({}, '', this.to)
+                    // 响应式, 会触发下面的组件重新渲染
+                    this.$router.data.current = this.to
+                    e.preventDefault()
+                }
+            }
+        })
+
+        const self = this // self 是VueRouter的实例
+        Vue.component('router-view', {
+            render (h) {
+                // 获取当前路由对应的组件
+                const component = self.routeMap[self.data.current]
+                return h(component)
+            }
+        })
+    }
+
+    initEvent () {
+        window.addEventListener('popstate', () => {
+            // 这里的this就是initEvent里的this, 即VueRouter对象
+            this.data.current = window.location.pathname
+        })
+    }
+
+}
+
+export default VueRouter
+```
